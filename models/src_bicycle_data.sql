@@ -1,7 +1,7 @@
 {{
     config(
         materialized='table',
-        description='Customer records with sensitive customer compliance data. To be hidden from almost everyone at TG.',
+        description='Data of bicycle rides for a company to analyze further.',
         persist_docs={"relation": true, "columns": false},
         schema='staging'
     )
@@ -25,14 +25,20 @@ source_cleaned as (
         start_lng,
         end_lat,
         end_lng,
-        ST_GEOGPOINT(start_lng, start_lat) as start_geog,
-        ST_GEOGPOINT(end_lng, end_lat) as end_geog,
+        case
+            when start_lng is not null and start_lat is not null then ST_GEOGPOINT(start_lng, start_lat)
+            else null
+        end as start_geog,
+        /* end_geog */
+        case
+            when end_lng is not null and end_lat is not null then ST_GEOGPOINT(end_lng, end_lat)
+            else null
+        end as end_geog,
         member_casual as member_type,
 
     from source
 ),
-
-final as (
+final as ( 
     select
         ride_id,
         bike_type,
@@ -69,8 +75,14 @@ final as (
         end as ended_at_weekday,
 
         /* distance travelled bigquery */
-        ST_DISTANCE(start_geog, end_geog) as distance_travelled,
+        start_geog,
+        end_geog,
+        case
+            when start_geog is not null and end_geog is not null then ST_DISTANCE(start_geog, end_geog)
+            else null
+        end as distance_travelled,
         date(timestamp_trunc(started_at, month)) as started_at_month,
+	
     from source_cleaned
 
 )
