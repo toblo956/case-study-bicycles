@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: cycle_data
+    database: "{{ var('source_data_project') }}"
+    schema: BicycleData
+    tables:
+      - name: '2022*'
+        description: '2022 Bicycle Data'
+  

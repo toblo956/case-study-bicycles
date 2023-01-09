@@ -1,8 +1,8 @@
-name: 'case-study'
+name: 'casestudy'
 version: '1.0.0'
 config-version: 2
 
-profile: 'case-study'
+profile: 'casestudy'
 
 model-paths: ["models"]
 analysis-paths: ["analysis"]
@@ -17,12 +17,5 @@ clean-targets: [target]
 
 query-comment: string
 
-require-dbt-version: version-range | [version-range]
-
-quoting:
-  database: true | false
-  schema: true | false
-  identifier: true | false
-
-models:
-  BicycleData
+vars:
+  source_data_project: 'case-study-361214'
