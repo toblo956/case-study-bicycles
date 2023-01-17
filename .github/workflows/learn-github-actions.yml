@@ -9,7 +9,7 @@ jobs:
       - name: run dbt
         uses: mwhitaker/dbt-action@master
         with:
-          dbt_command: "dbt run --profiles-dir ."
+          dbt_command: "dbt test"
         env:
           DBT_USER: ${{ secrets.DBT_USER }}
           DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
