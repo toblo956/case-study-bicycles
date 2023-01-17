@@ -11,10 +11,10 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-   - name: dbt-action
-      uses: mwhitaker/dbt-action@master
-      with:
-        dbt_command: "dbt run --profiles-dir ."
-      env:
-        DBT_USER: ${{ secrets.DBT_USER }}
-        DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+  dbt-action:
+    uses: mwhitaker/dbt-action@master
+    with:
+      dbt_command: "dbt run --profiles-dir ."
+    env:
+      DBT_USER: ${{ secrets.DBT_USER }}
+      DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
