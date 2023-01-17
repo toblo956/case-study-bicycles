@@ -15,11 +15,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+      - uses: mwhitaker/dbt-action@master
       - uses: actions/setup-python@v1
         with:
-          python-version: "3.7.x"
-      -uses: mwhitaker/dbt-action@master
-      #- run: pip3 install dbt
+          python-version: "3.7.x"    
       - run: dbt --version
       - run: 'echo "$KEYFILE" > ./.gcloud/dbt-service-account.json'
         shell: bash
