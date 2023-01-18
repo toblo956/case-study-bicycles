@@ -30,5 +30,9 @@ jobs:
           pip install dbt-bigquery
           dbt deps
       - run: dbt --version
-      - run: dbt run --profiles-dir DBT_PROFILES_DIR
+      - run: dbt debug --config-dir
+      with:
+        dbt_command: "dbt run --profiles-dir ."
+        dbt_project_folder: "dbt_project"
+      #- run: dbt run --profiles-dir DBT_PROFILES_DIR
       - run: dbt test
