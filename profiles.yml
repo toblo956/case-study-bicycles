@@ -1,0 +1,14 @@
+casestudy:
+    target: dev # This is the default target that's used if not set in command. To overwrite run "dbt run -m example_model --target prod"
+    outputs:
+        dev:
+            type: bigquery
+            method: service-account
+            project: case-study-361214
+            dataset: dbt
+            location: EU
+            threads: 20
+            keyfile: /Users/tobiaslofgren/Desktop/dbt/case-study-user-creds.json
+            timeout_seconds: 300
+            priority: interactive
+            retries: 1

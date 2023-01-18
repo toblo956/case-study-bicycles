@@ -19,3 +19,10 @@ query-comment: string
 
 vars:
   source_data_project: 'case-study-361214'
+
+models:
+  casestudy:
+    marts:
+      +required_tests: {"unique.*|not_null": 1}
+    staging:
+

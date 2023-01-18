@@ -1,0 +1,14 @@
+---
+version: 2
+models:
+  - name: bicycle_data_agg
+    description: "Aggregated bicycle data"
+    columns:
+
+      - name: ride_id
+        description: "Unique identifier for each ride"
+        tests:
+          - unique
+          - not_null
+
+   
