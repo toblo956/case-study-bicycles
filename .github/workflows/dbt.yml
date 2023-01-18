@@ -27,10 +27,13 @@ jobs:
           KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
       - name: Install dependencies
         run: |
-          pip install dbt-bigquery
+          pip install dbt-bigquery=1.0.0
           dbt deps
       - run: dbt --version
       - run: dbt debug --config-dir
-      - run: dbt run --profiles-dir .
+      - name: run dbt
+        run: dbt run --profiles-dir .
+        env:
+          DBT_GOOGLE_BIGQUERY_KEYFILE: ${{ secrets.DBT_GOOGLE_BIGQUERY_KEYFILE }}
       #- run: dbt run --profiles-dir DBT_PROFILES_DIR
       - run: dbt test
