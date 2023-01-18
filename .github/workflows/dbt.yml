@@ -14,16 +14,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
-      - uses: mwhitaker/dbt-action@master
+      - name: checkout
+        uses: actions/checkout@master
+      #- uses: mwhitaker/dbt-action@master
       - uses: actions/setup-python@v1
         with:
-          python-version: "3.7.x"    
-      - run: dbt --version
-      - run: 'echo "$KEYFILE" > ./.gcloud/dbt-service-account.json'
+          python-version: "3.7.x"
+      - name: Authenticate using service account
+        run: 'echo "$KEYFILE" > ./.gcloud/dbt-service-account.json'
         shell: bash
         env:
           KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
-      - run: dbt deps
+      - name: Install dependencies
+        run: |
+          pip install dbt
+          dbt deps
+      - run: dbt --version
       - run: dbt run
       - run: dbt test
