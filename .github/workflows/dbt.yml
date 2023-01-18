@@ -24,5 +24,6 @@ jobs:
         shell: bash
         env:
           KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
+      - run: dbt deps
       - run: dbt run
       - run: dbt test
