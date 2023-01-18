@@ -30,6 +30,7 @@ jobs:
           dbt deps
       - run: dbt --version
       - run: dbt debug --config-dir
+      - run: env
       - name: run dbt
         run: dbt run --profiles-dir .
       #- run: dbt run --profiles-dir DBT_PROFILES_DIR
