@@ -8,7 +8,7 @@ casestudy:
             dataset: dbt
             location: EU
             threads: 20
-            keyfile: /Users/tobiaslofgren/Desktop/dbt/case-study-user-creds.json
+            keyfile: "{{ env_var('DBT_ENV_SECRET_DBT_GOOGLE_BIGQUERY_KEYFILE') }}"
             timeout_seconds: 300
             priority: interactive
             retries: 1
