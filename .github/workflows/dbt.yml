@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.7.x"
       - name: Authenticate using service account
-        run: 'echo $DBT_GOOGLE_BIGQUERY_KEYFILE_CONTENT > tmp_key.json && DBT_GOOGLE_BIGQUERY_KEYFILE=tmp_key.json'
+        run: 'echo $DBT_GOOGLE_BIGQUERY_KEYFILE_CONTENT > tmp_key.json && export DBT_GOOGLE_BIGQUERY_KEYFILE=tmp_key.json'
         shell: bash
       - name: Install dependencies
         run: |
