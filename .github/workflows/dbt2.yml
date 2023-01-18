@@ -1,4 +1,4 @@
-name: dbt
+name: dbt2
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
 
 jobs:
   dbt:
-    name: dbt
+    name: dbt2
     runs-on: ubuntu-latest
 
     steps:
