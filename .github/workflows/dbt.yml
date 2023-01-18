@@ -27,7 +27,7 @@ jobs:
           KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
       - name: Install dependencies
         run: |
-          pip install dbt
+          pip install dbt-bigquery
           dbt deps
       - run: dbt --version
       - run: dbt run
