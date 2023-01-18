@@ -6,7 +6,8 @@ env:
   DBT_PROFILES_DIR: .
   DBT_GOOGLE_PROJECT: case-study-361214
   DBT_GOOGLE_BIGQUERY_DATASET: dbt
-  DBT_GOOGLE_BIGQUERY_KEYFILE: ./.gcloud/dbt-service-account.json
+  DBT_GOOGLE_BIGQUERY_KEYFILE_PATH: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE_PATH}}
+  DBT_GOOGLE_BIGQUERY_KEYFILE_CONTENT: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
 
 jobs:
   dbt:
@@ -20,11 +21,9 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: "3.7.x"
-      #- name: Authenticate using service account
-      #  run: 'echo "$KEYFILE" > ./.gcloud/dbt-service-account.json'
-      #  shell: bash
-      #  env:
-      #    KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
+      - name: Authenticate using service account
+        run: 'echo $DBT_GOOGLE_BIGQUERY_KEYFILE_CONTENT > $DBT_GOOGLE_BIGQUERY_KEYFILE_PATH'
+        shell: bash
       - name: Install dependencies
         run: |
           pip install dbt-bigquery==1.0.0
@@ -33,7 +32,5 @@ jobs:
       - run: dbt debug --config-dir
       - name: run dbt
         run: dbt run --profiles-dir .
-        env:
-          DBT_GOOGLE_BIGQUERY_KEYFILE: ${{ secrets.DBT_GOOGLE_BIGQUERY_KEYFILE }}
       #- run: dbt run --profiles-dir DBT_PROFILES_DIR
       - run: dbt test
